@@ -38,12 +38,19 @@ jobs:
     needs: pass-env
     strategy:
       matrix:
-        python-version: [3.11]
+        python-version: [3.7, 3.8, 3.9, 3.10, 3.11]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Checkout upstream-quickjs
+        uses: actions/checkout@v2
+        with:
+          repository: bellard/quickjs
+          ref: b5e62895c619d4ffc75c9d822c8d85f1ece77e5b
+          path: upstream-quickjs
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
