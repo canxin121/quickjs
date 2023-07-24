@@ -31,4 +31,3 @@ jobs:
         run: |
           echo "::set-output name=py-versions-str::${{ toJSON(env.PY_VERSIONS_STR) }}"
           echo "::set-output name=versions-linux-str::${{ toJSON(env.VERSIONS_LINUX_STR) }}"
-	
