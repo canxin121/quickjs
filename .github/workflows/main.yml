@@ -33,7 +33,6 @@ jobs:
         run: |
           echo "::set-output name=py-versions-str::${{ toJSON(env.PY_VERSIONS_STR) }}"
           echo "::set-output name=versions-linux-str::${{ toJSON(env.VERSIONS_LINUX_STR) }}"
-
   build:
     needs: pass-env
     strategy:
@@ -66,7 +65,10 @@ jobs:
         run: |
           if [ "${{ runner.os }}" == "Windows" ]; then
             echo "Installing for Windows"
-            choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+            choco install msys2
+            echo "C:\tools\msys64\mingw64\bin" >> $GITHUB_PATH
+            echo "C:\tools\msys64\usr\bin" >> $GITHUB_PATH
+            C:\tools\msys64\usr\bin\bash -lc "pacman -S --noconfirm mingw-w64-x86_64-gcc"
           elif [ "${{ runner.os }}" == "Linux" ]; then
             echo "Installing for Linux"
             sudo apt-get update
