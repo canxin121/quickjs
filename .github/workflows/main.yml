@@ -31,3 +31,13 @@ jobs:
         run: |
           echo "::set-output name=py-versions-str::${{ toJSON(env.PY_VERSIONS_STR) }}"
           echo "::set-output name=versions-linux-str::${{ toJSON(env.VERSIONS_LINUX_STR) }}"
+---
+- name: Setup Python
+  uses: actions/setup-python@v2
+  with:
+    python-version: '3.x'
+- name: Install maturin
+  run: pip install maturin
+- name: Build whl package
+  run: maturin build --release --strip --no-sdist --out dist
+
