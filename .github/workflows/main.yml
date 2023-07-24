@@ -64,14 +64,18 @@ jobs:
 
       - name: Install C++ Compiler
         run: |
-          if [[ "${{ runner.os }}" == "Windows" ]]; then
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            echo "Installing for Windows"
             choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
-          elif [[ "${{ runner.os }}" == "Linux" ]]; then
+          elif [ "${{ runner.os }}" == "Linux" ]; then
+            echo "Installing for Linux"
             sudo apt-get update
             sudo apt-get install -y g++
-          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+          elif [ "${{ runner.os }}" == "macOS" ]; then
+            echo "Installing for macOS"
             brew install gcc
           fi
+        shell: bash
 
       - name: Build wheel distribution
         run: |
